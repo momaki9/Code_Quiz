@@ -1,5 +1,5 @@
 
-var startbtn = document.getElementById('start-quiz')
+var startBtn = document.getElementById('start-quiz')
 var mainContent = document.querySelector(".quiz-content")
 
 
@@ -15,35 +15,42 @@ function startQuiz() {
     mainContent.appendChild(quizQuestion)
 
     var quizOption1 = document.createElement('button');
-    quizOption1.setAttribute("style", "height: 25px; width: 100px;")
+    quizOption1.setAttribute("style", "height: 35px; width: 160px;")
+    quizOption1.className = "answer-choice"
     quizOption1.textContent = "1. strings"
     mainContent.appendChild(quizOption1)
 
     var quizOption2 = document.createElement('button');
-    quizOption2.setAttribute("style", "height: 25px; width: 100px;")
+    quizOption2.setAttribute("style", "height: 35px; width: 160px;")
+    quizOption2.className = "answer-choice"
     quizOption2.textContent = "2. booleans"
     mainContent.appendChild(quizOption2)
 
     var quizOption3 = document.createElement('button');
-    quizOption3.setAttribute("style", "height: 25px; width: 100px;")
+    quizOption3.setAttribute("style", "height: 35px; width: 160px;")
+    quizOption3.className = "answer-choice c-choice"
     quizOption3.textContent = "3. alerts"
     mainContent.appendChild(quizOption3)
 
     var quizOption4 = document.createElement('button');
-    quizOption4.setAttribute("style", "height: 25px; width: 100px;")
+    quizOption4.setAttribute("style", "height: 35px; width: 160px;")
+    quizOption4.className = "answer-choice"
     quizOption4.textContent = "4. numbers"
     mainContent.appendChild(quizOption4)
 
-    var quizOptions = [quizOption1, quizOption2, quizOption3, quizOption4];
-
-    quizOptions[0].setAttribute("style", "color: white; background-color: purple; padding: 10px; display: flex; border: 1px solid purple; border-radius: 7px; flex-direction: column; justify-contents: space-between; margin: 8px; align-items: center;")
-    quizOptions[1].setAttribute("style", "color: white; background-color: purple; padding: 10px; display: flex; border: 1px solid purple; border-radius: 7px; flex-direction: column; justify-contents: space-between; margin: 8px; align-items: center;")
-    quizOptions[2].setAttribute("style", "color: white; background-color: purple; padding: 10px; display: flex; border: 1px solid purple; border-radius: 7px; flex-direction: column; justify-contents: space-between; margin: 8px; align-items: center;")
-    quizOptions[3].setAttribute("style", "color: white; background-color: purple; padding: 10px; display: flex; border: 1px solid purple; border-radius: 7px; flex-direction: column; justify-contents: space-between; margin: 8px; align-items: center;")
     // if "strings", "booleans", "numbers" then quiztime - 10000
-
+    // grading function
+    var answerChoiceBtn = document.querySelector(".c-choice")
+    answerChoiceBtn.addEventListener("click", immediateFeedback)
     
+    function immediateFeedback() { 
+        if (answerChoiceBtn) {
+            var feedback = document.createElement('p')
+            feedback.textContent = "Correct!";
+            mainContent.appendChild(feedback)
+        }
     
+}
 }
 
 // time remaining function
@@ -58,7 +65,7 @@ function timeRemaining () {
         }
         
     },
-    1);
+    1000);
 }
 
 
@@ -87,6 +94,8 @@ function quizDone(){
     mainContent.appendChild(initialBtn)
     initialBtn.addEventListener("click", quizHighScores);
 
+   
+
 };
 
 // final score tracking function
@@ -108,11 +117,18 @@ function quizHighScores(){
     clearHighScores.setAttribute("style", "width: 160px; height: 80px;")
     mainContent.appendChild(clearHighScores)
 
+    
+    
+    
+    
 };
 
-// grading function
+
 
 
 // event listener for correct answer
-startbtn.addEventListener("click", startQuiz);
-startbtn.addEventListener("click", timeRemaining);
+
+startBtn.addEventListener("click", startQuiz);
+startBtn.addEventListener("click", timeRemaining);
+
+
