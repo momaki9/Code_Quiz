@@ -8,7 +8,7 @@ body {
     font-family: monospace;
 }
 
-#start-quiz, .correct, .answer-choice, .all-btn {
+#start-quiz, .c-choice, .answer-choice, .all-btn, button {
     border: 1px solid black;
     border-radius: 8px;
     padding: 8px;
@@ -16,7 +16,14 @@ body {
     font-size: 20px;
     background-color: purple;
     color: white;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 150px;
+    font-size: 20px;
 }
+
 main {
     width: 80%;
     display: flex;
@@ -34,15 +41,7 @@ p {
     width: fit-content;
 }
 
-button {
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 150px;
-    font-size: 20px;
-    
-}
+
 
 a {
     text-decoration: none;
