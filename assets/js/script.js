@@ -5,14 +5,8 @@ var mainContent = document.querySelector(".quiz-content")
 // variable containing the the span element containing the quiz timer
 var quizTime = document.querySelector(".timer")
 
-
 var quizStartTime = 60;
-
 var timerProgress = true;
-
-var userInitials = localStorage.getItem("initials").value;
-var userScore = localStorage.getItem("score");
-
 
 
 
@@ -33,7 +27,6 @@ function quizTimer() {
 
 function init(){
     mainContent.textContent = "";
-    quizStartTime = 0;
     var quizIntro = document.createElement('h1')
     quizIntro.textContent = "Coding Quiz Challenge";
     mainContent.appendChild(quizIntro)
@@ -49,17 +42,10 @@ function init(){
     mainContent.appendChild(quizStartBtn)
 
     // event listen so that when the start quiz button is clicked, the quiz starts
-quizStartBtn.addEventListener("click", startQuiz);
+    quizStartBtn.addEventListener("click", startQuiz);
 
-// event listener so that when the quiz starts, the timer also starts
-quizStartBtn.addEventListener("click", quizTimer);
-
-
-
-
-
-
-
+    // event listener so that when the quiz starts, the timer also starts
+    quizStartBtn.addEventListener("click", quizTimer);
 }
 
 function startQuiz() {
@@ -151,9 +137,8 @@ function questionTwo() {
         answerChoiceBtn[i].addEventListener("click", correctFeedback) 
         answerChoiceBtn[i].addEventListener("click", quizDone) 
         
-    };
-};
-
+    }
+}
 
 function quizDone(){
     mainContent.innerHTML = ""
@@ -186,7 +171,7 @@ function quizDone(){
     var submissionResponseEl = document.createElement('p')
 
    
-
+   
     
     
 function quizHighScores() {
@@ -220,9 +205,13 @@ function quizHighScores() {
     submissionResponseEl.textContent = response;
 
     
+
     localStorage.setItem("initials", nameInput.value);
     localStorage.setItem("score", quizStartTime);
-    
+
+    localStorage.getItem("initials");
+    localStorage.getItem("score");
+
     finalClassScore.textContent = `1. ${nameInput.value}; Score: ${quizStartTime}`;
     
 }
@@ -231,6 +220,7 @@ initialBtn.addEventListener("click", quizHighScores);
   
 var scoresPage = document.getElementById('high-scores')
 scoresPage.addEventListener("click", quizHighScores)
+
 }
 
 
@@ -241,7 +231,7 @@ function wrongFeedback() {
     feedback.textContent = "wrong!";
     mainContent.appendChild(feedback)
             
-};
+}
 
 // function to provide feedback for correct answers
 function correctFeedback() { 
