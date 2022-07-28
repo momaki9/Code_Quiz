@@ -1,51 +1,39 @@
-
-var startBtn = document.getElementById('start-quiz')
+// variable containing the start quiz button
+var quizStartBtn = document.getElementById('start-quiz')
+// variable containing the the main content that will be dynamically changed; contains h1, p, ul and button
 var mainContent = document.querySelector(".quiz-content")
+// variable containing the the span element containing the quiz timer
 var quizTime = document.querySelector(".timer")
+
 var quizStartTime = 60;
-// var userScore = 0;
-// var userInitials = "";
 
-function init() {
-    getUserInitials();
-    getUserScore();
-}
+var timerProgress = true;
 
-function getUserInitials() {  
-    var storedWins = localStorage.getItem("winCount");
-    if (storedWins === null) {
-      winCounter = 0;
-    } else {
-      winCounter = storedWins;
-    }
-    
-  };
+// event listen so that when the start quiz button is clicked, the quiz starts
+quizStartBtn.addEventListener("click", startQuiz);
+// event listener so that when the quiz starts, the timer also starts
+quizStartBtn.addEventListener("click", quizTimer);
 
-  function getUserScore() {
-    var storedLosses = localStorage.getItem("loseCount");
-    if (storedLosses === null) {
-      loseCounter = 0;
-    } else {
-      loseCounter = storedLosses;
-    }
-    
-  };
-
-
-function timeRemaining () {
-    var quizTimer = setInterval(function() {
+// this function sets the time limit for the quiz
+function quizTimer() {
+    var timer = setInterval(function() {
+        if (timerProgress) {
         quizStartTime--;
         quizTime.textContent = quizStartTime;
+        }
         if(quizStartTime === 0) {
-            clearInterval(quizTimer);
-            return quizDone();
-        } 
+            clearInterval(timer);
+        }
+        
     },
     1000);
 }
 
+
 function startQuiz() {
-    quizTime.textContent = "60";
+    quizTime.textContent = quizStartTime;
+    quizStartTime = 60;
+    timerProgress = true;
     mainContent.textContent = "";
     var quizQuestion = document.createElement('h2')
     quizQuestion.textContent = "Commonly used data types DO Not Include:";
@@ -77,164 +65,145 @@ function startQuiz() {
 
     var answerChoiceBtn = document.getElementsByClassName("answer-choice")
 
+    // for loop to set up grading of the answer choices
     for ( var i = 0; i < answerChoiceBtn.length; i++)
     if (answerChoiceBtn[i].classList == "answer-choice") {
-       answerChoiceBtn[i].addEventListener("click", wrongFeedback) 
+       answerChoiceBtn[i].addEventListener("click", wrongFeedback)
+       answerChoiceBtn[i].addEventListener("click", questionTwo)
     } else if (answerChoiceBtn[i].classList == "c-choice answer-choice") {
         answerChoiceBtn[i].addEventListener("click", correctFeedback) 
+        answerChoiceBtn[i].addEventListener("click", questionTwo)
     };
-
-    function wrongFeedback() { 
-            var feedback = document.createElement('p')
-            feedback.textContent = "wrong!";
-            mainContent.appendChild(feedback)
-            return questionTwo();
-    };
-    function correctFeedback() { 
-        var feedback = document.createElement('p')
-        feedback.textContent = "Correct!";
-        mainContent.appendChild(feedback)
-        return questionTwo();
-    }
-
+    
 };
 
-    function questionTwo() {
-        // mainContent.textContent = "";
-        var quizQuestionTwo = document.createElement('h2')
-        quizQuestionTwo.textContent = "Arrays in Javascript can be used to store _________.";
-        mainContent.appendChild(quizQuestionTwo)
-    
-        var quizOption1 = document.createElement('button');
-        quizOption1.setAttribute("style", "height: 35px; width: 160px;")
-        quizOption1.className = "answer-choice"
-        quizOption1.textContent = "1. numbers and strings"
-        mainContent.appendChild(quizOption1)
-    
-        var quizOption2 = document.createElement('button');
-        quizOption2.setAttribute("style", "height: 35px; width: 160px;")
-        quizOption2.className = "answer-choice"
-        quizOption2.textContent = "2. other arrays"
-        mainContent.appendChild(quizOption2)
-    
-        var quizOption3 = document.createElement('button');
-        quizOption3.setAttribute("style", "height: 35px; width: 160px;")
-        quizOption3.className = "answer-choice"
-        quizOption3.textContent = "3. booleans"
-        mainContent.appendChild(quizOption3)
-    
-        var quizOption4 = document.createElement('button');
-        quizOption4.setAttribute("style", "height: 35px; width: 160px;")
-        quizOption4.className = "c-choice answer-choice"
-        quizOption4.textContent = "4. all of the above"
-        mainContent.appendChild(quizOption4)
-    
-// --------------------------------------- NOTES
-    // need to create a function for each question and call it
-    // need to set up correct grading
-    // need to tie in correct/wrong answers to score and time
-// ------------------------------------------
-    // grading function
-    
+function questionTwo() {
+    mainContent.textContent = "";
+    var quizQuestionTwo = document.createElement('h2')
+    quizQuestionTwo.textContent = "Arrays in Javascript can be used to store _________.";
+    mainContent.appendChild(quizQuestionTwo)
+
+    var quizOption1Q2 = document.createElement('button');
+    quizOption1Q2.setAttribute("style", "height: 35px; width: 250px;")
+    quizOption1Q2.className = "answer-choice"
+    quizOption1Q2.textContent = "1. numbers and strings"
+    mainContent.appendChild(quizOption1Q2)
+
+    var quizOption2Q2 = document.createElement('button');
+    quizOption2Q2.setAttribute("style", "height: 35px; width: 250px;")
+    quizOption2Q2.className = "answer-choice"
+    quizOption2Q2.textContent = "2. other arrays"
+    mainContent.appendChild(quizOption2Q2)
+
+    var quizOption3Q2 = document.createElement('button');
+    quizOption3Q2.setAttribute("style", "height: 35px; width: 250px;")
+    quizOption3Q2.className = "answer-choice"
+    quizOption3Q2.textContent = "3. booleans"
+    mainContent.appendChild(quizOption3Q2)
+
+    var quizOption4Q2 = document.createElement('button');
+    quizOption4Q2.setAttribute("style", "height: 35px; width: 250px;")
+    quizOption4Q2.className = "c-choice answer-choice"
+    quizOption4Q2.textContent = "4. all of the above"
+    mainContent.appendChild(quizOption4Q2)
+
     var answerChoiceBtn = document.getElementsByClassName("answer-choice")
 
+    // for loop to set up grading of the answer choices
     for ( var i = 0; i < answerChoiceBtn.length; i++)
     if (answerChoiceBtn[i].classList == "answer-choice") {
        answerChoiceBtn[i].addEventListener("click", wrongFeedback) 
+       answerChoiceBtn[i].addEventListener("click", quizDone) 
+       
     } else if (answerChoiceBtn[i].classList == "c-choice answer-choice") {
         answerChoiceBtn[i].addEventListener("click", correctFeedback) 
+        answerChoiceBtn[i].addEventListener("click", quizDone) 
+        
     };
+};
 
-    function wrongFeedback() { 
-            var feedback = document.createElement('p')
-            feedback.textContent = "wrong!";
-            mainContent.appendChild(feedback)
-            return quizDone();
-    };
-    function correctFeedback() { 
-        var feedback = document.createElement('p')
-        feedback.textContent = "Correct!";
-        mainContent.appendChild(feedback)
-        return quizDone();
-    }
 
-}
-
-// selects all correct choices
-var correctChoice = document.getElementsByClassName('correct-answer')
-
-// quiz done
 function quizDone(){
     mainContent.innerHTML = ""
+    timerProgress = false;
     var quizFinalText = document.createElement('h2')
     quizFinalText.textContent = "All done!";
     mainContent.appendChild(quizFinalText)
    
     var finalScoreText = document.createElement('p')
-    finalScoreText.textContent = "Your final score is " + quizStartTime;
+    finalScoreText.textContent = `Your final score is ${quizStartTime}`;
     mainContent.appendChild(finalScoreText)
+
     var enterInitial = document.createElement('p')
     enterInitial.textContent = "Enter initials:"
     mainContent.appendChild(enterInitial)
+
     var intialTextArea = document.createElement('textarea')
     intialTextArea.className = "user-input"
-    // intialTextArea.textContent = ""
     mainContent.appendChild(intialTextArea)
     
     var initialBtn = document.createElement('button')
     initialBtn.textContent = "Submit"
-    initialBtn.setAttribute("type", "submit")
+    initialBtn.setAttribute("type", "button")
     initialBtn.className = "submit-initials"
     initialBtn.setAttribute("style", "width: 160px; height: 80px;")
     mainContent.appendChild(initialBtn)
 
-    initialBtn.addEventListener("click", quizHighScores);
-
-    initialBtn.addEventListener("click", submitInitials);
-
-
-    function submitInitials() {
-    var intialsSubmitBtn = document.querySelector(".submit-initials")
-        if (intialsSubmitBtn) {
-            alert("Hi")
-        }
-    }
-};
-
-// final score tracking function
-function quizHighScores(){
+    
+    var nameInput = document.querySelector(".user-input");
+    var submissionResponseEl = document.createElement('p')
+    
+function quizHighScores() {
+  
     mainContent.innerHTML = ""
-    var quizFinalPage = document.createElement('h2')
+    var quizFinalPage = document.createElement('h1')
     quizFinalPage.textContent = "High Scores";
     mainContent.appendChild(quizFinalPage)
    
-    var finalClassScore = document.createElement('ol')
-    finalClassScore.textContent = "1. AB - " + quizStartTime;
+    var finalClassScore = document.createElement('h2')
+    finalClassScore.textContent = `1. ${nameInput.value}; Score: ${quizStartTime}`;
     mainContent.appendChild(finalClassScore)
 
     var goBackBtn = document.createElement('button')
     goBackBtn.textContent = "Go Back"
     goBackBtn.className = "go-back"
-    goBackBtn.setAttribute("type", "submit")
+    goBackBtn.setAttribute("type", "button")
     goBackBtn.setAttribute("style", "width: 160px; height: 80px;")
     mainContent.appendChild(goBackBtn)
 
+    goBackBtn.addEventListener("click", startQuiz);
+
     var clearHighScores = document.createElement('button')
-    clearHighScores.setAttribute("type", "submit")
+    clearHighScores.setAttribute("type", "button")
     clearHighScores.textContent = "Clear Scores"
     clearHighScores.setAttribute("style", "width: 160px; height: 80px;")
     mainContent.appendChild(clearHighScores)
 
-    goBackBtn.addEventListener("click", init);
+    var response = `Thank you for taking the Code Quiz, ${nameInput.value}!`
+     mainContent.appendChild(submissionResponseEl)
+    submissionResponseEl.textContent = response;
+}
 
+initialBtn.addEventListener("click", quizHighScores);    
+  
+
+}
+
+
+// function to provide feedback for wrong answers and deduct 10 seconds from the quiz time
+function wrongFeedback() { 
+    quizStartTime-= 10;
+    var feedback = document.createElement('p')
+    feedback.textContent = "wrong!";
+    mainContent.appendChild(feedback)
+            
 };
 
-
-
-
-// event listener for correct answer
-init();
-startBtn.addEventListener("click", startQuiz);
-startBtn.addEventListener("click", timeRemaining);
+// function to provide feedback for correct answers
+function correctFeedback() { 
+    var feedback = document.createElement('p')
+    feedback.textContent = "Correct!";
+    mainContent.appendChild(feedback)
+}
 
 
