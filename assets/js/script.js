@@ -1,5 +1,5 @@
 // variable containing the start quiz button
-var quizStartBtn = document.getElementById('start-quiz')
+var quizStartBtn = document.querySelector('.start-quiz')
 // variable containing the the main content that will be dynamically changed; contains h1, p, ul and button
 var mainContent = document.querySelector(".quiz-content")
 // variable containing the the span element containing the quiz timer
@@ -9,10 +9,11 @@ var quizStartTime = 60;
 
 var timerProgress = true;
 
-// event listen so that when the start quiz button is clicked, the quiz starts
-quizStartBtn.addEventListener("click", startQuiz);
-// event listener so that when the quiz starts, the timer also starts
-quizStartBtn.addEventListener("click", quizTimer);
+var userInitials = localStorage.getItem("initials").value;
+    var userScore = localStorage.getItem("score");
+
+
+
 
 // this function sets the time limit for the quiz
 function quizTimer() {
@@ -28,6 +29,37 @@ function quizTimer() {
     },
     1000);
 }
+
+function init(){
+    mainContent.textContent = "";
+    quizStartTime = 0;
+    var quizIntro = document.createElement('h1')
+    quizIntro.textContent = "Coding Quiz Challenge";
+    mainContent.appendChild(quizIntro)
+
+    var quizRules = document.createElement('p');
+    quizRules.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!"
+    mainContent.appendChild(quizRules)
+
+    var quizStartBtn = document.createElement('button')
+    quizStartBtn.setAttribute("type", 'button')
+    quizStartBtn.textContent = "Start the Quiz";
+    quizStartBtn.className = "start-quiz"
+    mainContent.appendChild(quizStartBtn)
+
+    // event listen so that when the start quiz button is clicked, the quiz starts
+quizStartBtn.addEventListener("click", startQuiz);
+
+// event listener so that when the quiz starts, the timer also starts
+quizStartBtn.addEventListener("click", quizTimer);
+
+
+}
+
+function clearScores(){
+
+}
+
 
 
 function startQuiz() {
@@ -152,6 +184,10 @@ function quizDone(){
     
     var nameInput = document.querySelector(".user-input");
     var submissionResponseEl = document.createElement('p')
+
+   
+
+    
     
 function quizHighScores() {
   
@@ -161,7 +197,7 @@ function quizHighScores() {
     mainContent.appendChild(quizFinalPage)
    
     var finalClassScore = document.createElement('h2')
-    finalClassScore.textContent = `1. ${nameInput.value}; Score: ${quizStartTime}`;
+    
     mainContent.appendChild(finalClassScore)
 
     var goBackBtn = document.createElement('button')
@@ -171,7 +207,7 @@ function quizHighScores() {
     goBackBtn.setAttribute("style", "width: 160px; height: 80px;")
     mainContent.appendChild(goBackBtn)
 
-    goBackBtn.addEventListener("click", startQuiz);
+    goBackBtn.addEventListener("click", init);
 
     var clearHighScores = document.createElement('button')
     clearHighScores.setAttribute("type", "button")
@@ -182,6 +218,13 @@ function quizHighScores() {
     var response = `Thank you for taking the Code Quiz, ${nameInput.value}!`
      mainContent.appendChild(submissionResponseEl)
     submissionResponseEl.textContent = response;
+
+    
+    localStorage.setItem("initials", nameInput.value);
+    localStorage.setItem("score", quizStartTime);
+    
+    finalClassScore.textContent = `1. ${nameInput.value}; Score: ${quizStartTime}`;
+    
 }
 
 initialBtn.addEventListener("click", quizHighScores);    
@@ -205,5 +248,7 @@ function correctFeedback() {
     feedback.textContent = "Correct!";
     mainContent.appendChild(feedback)
 }
+
+init();
 
 
