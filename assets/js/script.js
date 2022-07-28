@@ -5,12 +5,13 @@ var mainContent = document.querySelector(".quiz-content")
 // variable containing the the span element containing the quiz timer
 var quizTime = document.querySelector(".timer")
 
+
 var quizStartTime = 60;
 
 var timerProgress = true;
 
 var userInitials = localStorage.getItem("initials").value;
-    var userScore = localStorage.getItem("score");
+var userScore = localStorage.getItem("score");
 
 
 
@@ -54,13 +55,12 @@ quizStartBtn.addEventListener("click", startQuiz);
 quizStartBtn.addEventListener("click", quizTimer);
 
 
+
+
+
+
+
 }
-
-function clearScores(){
-
-}
-
-
 
 function startQuiz() {
     quizTime.textContent = quizStartTime;
@@ -229,7 +229,8 @@ function quizHighScores() {
 
 initialBtn.addEventListener("click", quizHighScores);    
   
-
+var scoresPage = document.getElementById('high-scores')
+scoresPage.addEventListener("click", quizHighScores)
 }
 
 
