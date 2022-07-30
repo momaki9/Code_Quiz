@@ -32,7 +32,7 @@ function init(){
     mainContent.appendChild(quizIntro)
 
     var quizRules = document.createElement('p');
-    quizRules.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!"
+    quizRules.textContent = "Try to answer the following code-related questions. You will have 60 seconds to complete the quiz. Wrong answers will deduct 10 seconds from the quiz time. Good Luck!!"
     mainContent.appendChild(quizRules)
 
     var quizStartBtn = document.createElement('button')
@@ -54,31 +54,31 @@ function startQuiz() {
     timerProgress = true;
     mainContent.textContent = "";
     var quizQuestion = document.createElement('h2')
-    quizQuestion.textContent = "Commonly used data types DO Not Include:";
+    quizQuestion.textContent = "Ideally, where should the script element be placed in the HTML document?";
     mainContent.appendChild(quizQuestion)
 
     var quizOption1 = document.createElement('button');
-    quizOption1.setAttribute("style", "height: 35px; width: 160px;")
+    quizOption1.setAttribute("style", "height: 35px; width: fit-content;")
     quizOption1.className = "answer-choice"
-    quizOption1.textContent = "1. strings"
+    quizOption1.textContent = "1. Within the <head>"
     mainContent.appendChild(quizOption1)
 
     var quizOption2 = document.createElement('button');
-    quizOption2.setAttribute("style", "height: 35px; width: 160px;")
+    quizOption2.setAttribute("style", "height: 35px; width: fit-content;")
     quizOption2.className = "answer-choice"
-    quizOption2.textContent = "2. booleans"
+    quizOption2.textContent = "2. Just below the opening <body> tag"
     mainContent.appendChild(quizOption2)
 
     var quizOption3 = document.createElement('button');
-    quizOption3.setAttribute("style", "height: 35px; width: 160px;")
+    quizOption3.setAttribute("style", "height: 35px; width: fit-content;")
     quizOption3.className = "c-choice answer-choice"
-    quizOption3.textContent = "3. alerts"
+    quizOption3.textContent = "3. Just above the closing </body> tag"
     mainContent.appendChild(quizOption3)
 
     var quizOption4 = document.createElement('button');
-    quizOption4.setAttribute("style", "height: 35px; width: 160px;")
+    quizOption4.setAttribute("style", "height: 35px; width: fit-content;")
     quizOption4.className = "answer-choice"
-    quizOption4.textContent = "4. numbers"
+    quizOption4.textContent = "4. Anywhere is fine"
     mainContent.appendChild(quizOption4)
 
     var answerChoiceBtn = document.getElementsByClassName("answer-choice")
@@ -98,31 +98,31 @@ function startQuiz() {
 function questionTwo() {
     mainContent.textContent = "";
     var quizQuestionTwo = document.createElement('h2')
-    quizQuestionTwo.textContent = "Arrays in Javascript can be used to store _________.";
+    quizQuestionTwo.textContent = "All of the following are used within Javascript except";
     mainContent.appendChild(quizQuestionTwo)
 
     var quizOption1Q2 = document.createElement('button');
-    quizOption1Q2.setAttribute("style", "height: 35px; width: 250px;")
-    quizOption1Q2.className = "answer-choice"
-    quizOption1Q2.textContent = "1. numbers and strings"
+    quizOption1Q2.setAttribute("style", "height: 35px; width: fit-content;")
+    quizOption1Q2.className = "c-choice answer-choice"
+    quizOption1Q2.textContent = "1. Arrows"
     mainContent.appendChild(quizOption1Q2)
 
     var quizOption2Q2 = document.createElement('button');
-    quizOption2Q2.setAttribute("style", "height: 35px; width: 250px;")
+    quizOption2Q2.setAttribute("style", "height: 35px; width: fit-content;")
     quizOption2Q2.className = "answer-choice"
-    quizOption2Q2.textContent = "2. other arrays"
+    quizOption2Q2.textContent = "2. Objects"
     mainContent.appendChild(quizOption2Q2)
 
     var quizOption3Q2 = document.createElement('button');
-    quizOption3Q2.setAttribute("style", "height: 35px; width: 250px;")
+    quizOption3Q2.setAttribute("style", "height: 35px; width: fit-content;")
     quizOption3Q2.className = "answer-choice"
-    quizOption3Q2.textContent = "3. booleans"
+    quizOption3Q2.textContent = "3. Functions"
     mainContent.appendChild(quizOption3Q2)
 
     var quizOption4Q2 = document.createElement('button');
-    quizOption4Q2.setAttribute("style", "height: 35px; width: 250px;")
-    quizOption4Q2.className = "c-choice answer-choice"
-    quizOption4Q2.textContent = "4. all of the above"
+    quizOption4Q2.setAttribute("style", "height: 35px; width: fit-content;")
+    quizOption4Q2.className = "answer-choice"
+    quizOption4Q2.textContent = "4. Variables"
     mainContent.appendChild(quizOption4Q2)
 
     var answerChoiceBtn = document.getElementsByClassName("answer-choice")
@@ -131,6 +131,118 @@ function questionTwo() {
     for ( var i = 0; i < answerChoiceBtn.length; i++)
     if (answerChoiceBtn[i].classList == "answer-choice") {
        answerChoiceBtn[i].addEventListener("click", wrongFeedback) 
+       return questionThree;
+    } 
+    //    answerChoiceBtn[i].addEventListener("click", questionThree) 
+       
+     else if (answerChoiceBtn[i].classList == "c-choice answer-choice") {
+        answerChoiceBtn[i].addEventListener("click", correctFeedback) 
+        answerChoiceBtn[i].addEventListener("click", questionThree) 
+        
+    }
+}
+
+function questionThree() {
+    mainContent.textContent = "";
+    var quizQuestionThree = document.createElement('h2')
+    quizQuestionThree.textContent = "All HTML elements have an opening and a closing tag.";
+    mainContent.appendChild(quizQuestionThree)
+
+    var quizOption1Q3 = document.createElement('button');
+    quizOption1Q3.setAttribute("style", "height: 35px; width: fit-content;")
+    quizOption1Q3.className = "answer-choice"
+    quizOption1Q3.textContent = "True"
+    mainContent.appendChild(quizOption1Q3)
+
+    var quizOption2Q3 = document.createElement('button');
+    quizOption2Q3.setAttribute("style", "height: 35px; width: fit-content;")
+    quizOption2Q3.className = "answer-choice c-choice"
+    quizOption2Q3.textContent = "False"
+    mainContent.appendChild(quizOption2Q3)
+
+    var answerChoiceBtn = document.getElementsByClassName("answer-choice")
+
+    for ( var i = 0; i < answerChoiceBtn.length; i++)
+    if (answerChoiceBtn[i].classList == "answer-choice") {
+       answerChoiceBtn[i].addEventListener("click", wrongFeedback) 
+       answerChoiceBtn[i].addEventListener("click", questionFour) 
+       
+    } else if (answerChoiceBtn[i].classList == "c-choice answer-choice") {
+        answerChoiceBtn[i].addEventListener("click", correctFeedback) 
+        answerChoiceBtn[i].addEventListener("click", questionFour) 
+        
+    }
+}
+
+function questionFour() {
+    mainContent.textContent = "";
+    var quizQuestionFour = document.createElement('h2')
+    quizQuestionFour.textContent = "What does DOM stand for?";
+    mainContent.appendChild(quizQuestionFour)
+
+    var quizOption1Q4 = document.createElement('button');
+    quizOption1Q4.setAttribute("style", "height: 35px; width: fit-content;")
+    quizOption1Q4.className = "answer-choice c-choice"
+    quizOption1Q4.textContent = "Document Object Model"
+    mainContent.appendChild(quizOption1Q4)
+
+    var quizOption2Q4 = document.createElement('button');
+    quizOption2Q4.setAttribute("style", "height: 35px; width: fit-content;")
+    quizOption2Q4.className = "answer-choice"
+    quizOption2Q4.textContent = "Document Operator Model"
+    mainContent.appendChild(quizOption2Q4)
+    var quizOption1Q4 = document.createElement('button');
+    quizOption1Q4.setAttribute("style", "height: 35px; width: fit-content;")
+    quizOption1Q4.className = "answer-choice"
+    quizOption1Q4.textContent = "Document Objects and Methods"
+    mainContent.appendChild(quizOption1Q4)
+
+    var quizOption2Q4 = document.createElement('button');
+    quizOption2Q4.setAttribute("style", "height: 35px; width: fit-content;")
+    quizOption2Q4.className = "answer-choice c-choice"
+    quizOption2Q4.textContent = "Distinguished Operators Method"
+    mainContent.appendChild(quizOption2Q4)
+
+    var answerChoiceBtn = document.getElementsByClassName("answer-choice")
+
+    // for loop to set up grading of the answer choices
+    for ( var i = 0; i < answerChoiceBtn.length; i++)
+    if (answerChoiceBtn[i].classList == "answer-choice") {
+       answerChoiceBtn[i].addEventListener("click", wrongFeedback) 
+       answerChoiceBtn[i].addEventListener("click", questionFive) 
+       
+    } else if (answerChoiceBtn[i].classList == "c-choice answer-choice") {
+        answerChoiceBtn[i].addEventListener("click", correctFeedback) 
+        answerChoiceBtn[i].addEventListener("click", questionFive) 
+        
+    }
+}
+
+function questionFive() {
+
+    mainContent.textContent = "";
+    var quizQuestionFive = document.createElement('h2')
+    quizQuestionFive.textContent = "The method querySelector is used to select an element either by class or id.";
+    mainContent.appendChild(quizQuestionFive)
+
+    var quizOption1Q5 = document.createElement('button');
+    quizOption1Q5.setAttribute("style", "height: 35px; width: fit-content;")
+    quizOption1Q5.className = "answer-choice c-choice"
+    quizOption1Q5.textContent = "True"
+    mainContent.appendChild(quizOption1Q5)
+
+    var quizOption2Q5 = document.createElement('button');
+    quizOption2Q5.setAttribute("style", "height: 35px; width: fit-content;")
+    quizOption2Q5.className = "answer-choice"
+    quizOption2Q5.textContent = "False"
+    mainContent.appendChild(quizOption2Q5)   
+
+    var answerChoiceBtn = document.getElementsByClassName("answer-choice")
+
+    // for loop to set up grading of the answer choices
+    for ( var i = 0; i < answerChoiceBtn.length; i++)
+    if (answerChoiceBtn[i].classList == "answer-choice") {
+       answerChoiceBtn[i].addEventListener("click", wrongFeedback)
        answerChoiceBtn[i].addEventListener("click", quizDone) 
        
     } else if (answerChoiceBtn[i].classList == "c-choice answer-choice") {
@@ -139,7 +251,6 @@ function questionTwo() {
         
     }
 }
-
 function quizDone(){
     mainContent.innerHTML = ""
     timerProgress = false;
@@ -155,7 +266,7 @@ function quizDone(){
     enterInitial.textContent = "Enter initials:"
     mainContent.appendChild(enterInitial)
 
-    var intialTextArea = document.createElement('textarea')
+    var intialTextArea = document.createElement('input')
     intialTextArea.className = "user-input"
     mainContent.appendChild(intialTextArea)
     
@@ -168,9 +279,8 @@ function quizDone(){
 
     
     var nameInput = document.querySelector(".user-input");
-    var submissionResponseEl = document.createElement('p')
+    var submissionResponseEl = document.createElement('h3')
 
-   
    
     
     
@@ -197,6 +307,7 @@ function quizHighScores() {
     var clearHighScores = document.createElement('button')
     clearHighScores.setAttribute("type", "button")
     clearHighScores.textContent = "Clear Scores"
+    clearHighScores.className = "clear-scores"
     clearHighScores.setAttribute("style", "width: 160px; height: 80px;")
     mainContent.appendChild(clearHighScores)
 
@@ -235,6 +346,7 @@ function wrongFeedback() {
 
 // function to provide feedback for correct answers
 function correctFeedback() { 
+    
     var feedback = document.createElement('p')
     feedback.textContent = "Correct!";
     mainContent.appendChild(feedback)
