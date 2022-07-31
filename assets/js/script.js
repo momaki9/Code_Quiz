@@ -10,20 +10,23 @@ var timerDisplay = document.querySelector(".timer")
 var quizText = document.querySelector(".quiz-content")
 var quizOptions = document.querySelector(".quiz-options")
 var answerChoices = quizOptions.querySelectorAll(".btn-2")
+var quizButtons = document.querySelector(".quiz-buttons")
 var userInput = document.querySelector(".initials") 
 var viewScores = document.querySelector(".view-scores")
-var quizTime = 60;
+var feedback = document.querySelector(".feedback")
+var quizTime
+
 // var userScore
 // var userInitials
 var randomQuestion
 var currentQuestionIndex;
-
 
 localStorage.getItem("initials");
 localStorage.getItem("score");
 
 // event listeners
 startBtn.addEventListener('click', startQuiz)
+goBackBtn.addEventListener('click', quizRules)
 nextBtn.addEventListener('click', () => {
   currentQuestionIndex++
   nextQuestion()
@@ -37,6 +40,7 @@ viewScores.addEventListener('click', function(event) {
     highScores();
     
 })   
+
 submitInitials.addEventListener('click', function () {
     if (userInput.value) {
         return highScores();
@@ -44,27 +48,27 @@ submitInitials.addEventListener('click', function () {
         
         alert("enter initials")
     }
-})      
-goBackBtn.addEventListener('click', quizRules)
+})    
 
 // functions
 function quizRules() {
     quizTime = 60;
+    timerDisplay.textContent = quizTime
     quizText.classList.remove("hide")
     startBtn.classList.remove("hide")
     goBackBtn.classList.add("hide")
     quizHeader.textContent = "Coding Quiz Challenge!"
     quizText.children[0].textContent = "Try to answer the following code-related questions. You will have 60 seconds to complete the quiz. Wrong answers will deduct 10 seconds from the quiz time. Good Luck!!";
     quizText.children[1].classList.add("hide")
-    timerDisplay.classList.remove("hide")
-    timerDisplay.textContent = quizTime
+    timerDisplay.classList.remove("hide")   
 }
 
 function init() {
+    quizTime = 60;
+    timerDisplay.textContent = quizTime
     quizText.classList.remove("hide")
     startBtn.classList.remove("hide")
     timerDisplay.classList.remove("hide")
-    timerDisplay.textContent = quizTime
     
 }
 
@@ -80,14 +84,14 @@ function quizTimer() {
         }
          if (currentQuestionIndex >= 4) {
             clearInterval(timer);
-        }
-        
+        } 
     },
     1000);
 }
 
 function startQuiz() {
     quizTimer();
+    quizTime = 60;
     quizOptions.classList.remove("hide")
     randomQuestion = quizQuestions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
@@ -96,7 +100,7 @@ function startQuiz() {
 
 function nextQuestion() {
   showQuestion(randomQuestion[currentQuestionIndex])
-  
+  feedback.classList.add("hide")
 }
 
 function showQuestion(question) {
@@ -106,29 +110,38 @@ function showQuestion(question) {
 
     for (var i = 0; i < question.choices.length; i++) {
         quizOptions.children[i].innerText = question.choices[i]
+        
     }
+
     // quizOptions.children[0].innerText = question.choices[0]
     // quizOptions.children[1].innerText = question.choices[1]
     // quizOptions.children[2].innerText = question.choices[2]
     // quizOptions.children[3].innerText = question.choices[3]
+
     for (var i = 0; i < answerChoices.length; i++) {
         answerChoices[i].addEventListener('click', function(event) {
             
             var userAns = event.target 
             var correctAns = question.answer
-            
             if (userAns.textContent === correctAns) {
-                userAns.setAttribute("style","background-color: green")
-                
-            } else {
-                userAns.setAttribute("style","background-color: red")
-                quizTime-= 10;
+                feedback.classList.remove("hide")
+                feedback.textContent = "Correct!"
+            } else if (userAns.textContent !== correctAns){
+                feedback.classList.remove("hide")
+                feedback.textContent = "Wrong!"
             }
-            
         });
     }
-    
+    for (var i = 0; i < answerChoices.length; i++) {
+    answerChoices[i].addEventListener('click', function(event, i) {
+        var userAns = event.target 
+        var correctAns = question.answer
+        if (userAns.textContent !== correctAns) {
+            quizTime -= 10;
 }
+    })
+    
+}}
                    
 function quizDone() {
     quizOptions.classList.add("hide")
@@ -141,8 +154,6 @@ function quizDone() {
     userInput.classList.remove("hide")
     quizHeader.textContent = "Quiz Done!"
 }
-    
-    
 
 function highScores() {
     highScoresList.classList.remove("hide")
@@ -161,7 +172,6 @@ function highScores() {
     localStorage.setItem("time", quizTime)
 }
 
-
 // questions answer choices and correct answers
 var quizQuestions = [
     {
@@ -176,7 +186,7 @@ var quizQuestions = [
     },
     {
         question: "All HTML elements have an opening and a closing tag.",
-        choices: ["True", "False", "What's an HTML element??", "What's a tag?"],
+        choices: ["True", "False"],
         answer: "False",
     },
     {
@@ -186,7 +196,7 @@ var quizQuestions = [
     },
     {
         question: "The method querySelector can be used to select an element by",
-        choices: ["Class", "Id", "All of the above", "None of the above"],
+        choices: ["Class", "ID", "Element's tag (e.g. h1 or div)", "All of the above"],
         answer: "All of the above",
     }
 ]
