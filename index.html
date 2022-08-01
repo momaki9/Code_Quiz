@@ -1,45 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coding Quiz Challenge</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Code Quiz</title> 
 </head>
 <body>
-    <main>
-        <header>
-            <ul>
-                <li class="view-scores view-scores-btn">View High Scores</li>
-                <li>Quiz Timer: <span class="timer hide">0</span></li>
-            </ul>
-            <h1 class="quiz-header">Coding Quiz Challenge!</h1>    
-        </header>
-
-        <section class="quiz-content content-border hide">
-            <p>Try to answer the following code-related questions. You will have 60 seconds to complete the quiz. Wrong answers will deduct 10 seconds from the quiz time. Good Luck!!
-            </p>
-            <ol class="high-scores hide"></ol>
-            <input class="initials hide">
-            <div class="quiz-options hide">
-                <button class="btn-2"></button>
-                <button class="btn-2"></button>
-                <button class="btn-2"></button>
-                <button class="btn-2"></button>
-            </div>
-            <h3 class="feedback hide"></h3>
-        </section>
-
-        <section class="quiz-buttons">
-            <button class="btn submit-btn hide">Submit</button>
-            <button class="btn start-btn hide">Start</button>
-            <button class="btn next-btn hide">Next</button>
-            <button class="btn go-back-btn hide">Go Back</button>
-            <button class="btn clear-scores-btn hide">Clear Scores</button>
-        </section>
-
+    <header>
+        <ul>
+            <li><button id="high-scores">View high scores</button></li>
+            <li>Quiz Timer: <span class="timer">0 </span> s</li>
+        </ul>
+    </header>
+    <main class="quiz-content">
     </main>
+    
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
