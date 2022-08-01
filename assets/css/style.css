@@ -1,3 +1,4 @@
+/* styling added to elements that will be added dynamically by JavaScript */
 body {
     padding: 30px;
     margin-bottom: 20px;
@@ -27,7 +28,7 @@ main {
     color: rgb(15, 15, 15);
     border: none;
 }
-
+/* styling added for the quiz buttons */
 .start-quiz, .c-choice, .answer-choice, .submit-initials {
     -moz-box-shadow: inset 0 0 10px #777777;
     -webkit-box-shadow: inset 0 0 10px #777777;
@@ -46,6 +47,7 @@ main {
     
 }
 
+/* styling added for the quiz buttons */
 .go-back, .clear-scores {
     -moz-box-shadow: inset 0 0 10px #777777;
     -webkit-box-shadow: inset 0 0 10px #777777;
@@ -63,7 +65,7 @@ main {
     align-items: center;   
 }
 
-
+/* styling added for the quiz buttons */
 .next-btn {
     -moz-box-shadow: inset 0 0 10px #777777;
     -webkit-box-shadow: inset 0 0 10px #777777;
@@ -118,12 +120,13 @@ ul {
     font-size: 20px;
 }
 
-
+/* styling added for when the user hovers over the quiz buttons */
 button:hover {
     cursor: pointer;
     transform: scale(1.02, 1.05);
 }
 
+/* used to control which buttons would be visible during the quiz */
 .hde-btn {
     visibility: hidden;
 }

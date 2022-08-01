@@ -1,18 +1,18 @@
-// variable containing the start quiz button
+// variable selecting the start quiz button by class
 var quizStartBtn = document.querySelector('.start-quiz')
 // variable containing the the main content that will be dynamically changed; contains h1, p, ul and button
 var mainContent = document.querySelector(".quiz-content")
 // variable containing the the span element containing the quiz timer
 var quizTime = document.querySelector(".timer")
-
-
+// value set for the quiz start time
 var quizStartTime = 60;
 var timerProgress = true;
 
+// accessing the stored user initials and score from local storage
 localStorage.getItem("initials");
 localStorage.getItem("score");
 
-// this function sets the time limit for the quiz
+// this function sets the time limit for the quiz and counts down by 1 sec; also used to stop the quiz when time runs out
 function quizTimer() {
     var timer = setInterval(function() {
         if (timerProgress) {
@@ -23,12 +23,11 @@ function quizTimer() {
             clearInterval(timer);
             quizDone();
         }
-        
-        
     },
     1000);
 }
 
+// function that is being called when the quiz loads and is used to display the content of the first page
 function init(){
     mainContent.textContent = "";
     var quizIntro = document.createElement('h1')
@@ -36,7 +35,7 @@ function init(){
     mainContent.appendChild(quizIntro)
 
     var quizRules = document.createElement('p');
-    quizRules.textContent = "Try to answer the following code-related questions. You will have 60 seconds to complete the quiz. Wrong answers will deduct 10 seconds from the quiz time. Good Luck!!"
+    quizRules.textContent = "The following quiz will test your knowledge on common code related topics. You will have 60 seconds and wrong answers will deduct 10 seconds!. Good Luck!!"
     mainContent.appendChild(quizRules)
 
     var quizStartBtn = document.createElement('button')
@@ -45,13 +44,14 @@ function init(){
     quizStartBtn.className = "start-quiz"
     mainContent.appendChild(quizStartBtn)
 
-    // event listen so that when the start quiz button is clicked, the quiz starts
+    // event listener for when the start quiz button is clicked, the quiz starts
     quizStartBtn.addEventListener("click", startQuiz);
 
     // event listener so that when the quiz starts, the timer also starts
     quizStartBtn.addEventListener("click", quizTimer);
 }
 
+// this function is triggered when the start button is clicked and starts to show the first question
 function startQuiz() {
     quizTime.textContent = quizStartTime;
     quizStartTime = 60;
@@ -108,6 +108,7 @@ function startQuiz() {
     
 };
 
+// this function shows the 2nd quiz question and is called when the user answers the first question and hits next
 function questionTwo() {
     mainContent.textContent = "";
     var quizQuestionTwo = document.createElement('h2')
@@ -161,6 +162,7 @@ function questionTwo() {
     }
 }
 
+// this function shows the 3rd quiz question and is called when the user answers the previous question and hits next
 function questionThree() {
     mainContent.textContent = "";
     var quizQuestionThree = document.createElement('h2')
@@ -198,6 +200,7 @@ function questionThree() {
     };
 }
 
+// this function shows the 4th quiz question and is called when the user answers the previous question and hits next
 function questionFour() {
     mainContent.textContent = "";
     var quizQuestionFour = document.createElement('h2')
@@ -248,6 +251,7 @@ function questionFour() {
     }
 }
 
+// this function shows the final quiz question and is called when the user answers the previous question and hits next
 function questionFive() {
 
     mainContent.textContent = "";
@@ -288,6 +292,7 @@ function questionFive() {
     }
 }
 
+// this function shows the page once the quiz is over or time has run out
 function quizDone(){
     mainContent.innerHTML = ""
     timerProgress = false;
@@ -317,14 +322,12 @@ function quizDone(){
     
     var nameInput = document.querySelector(".user-input");
     
-    var submissionResponseEl = document.createElement('h3')
+    var subResponse = document.createElement('h3')
 
    
     
-    
+// function to display the quiz scores using stored user initials and score    
 function quizHighScores() {
-
-  
     mainContent.innerHTML = ""
     var quizFinalPage = document.createElement('h1')
     quizFinalPage.textContent = "High Scores";
@@ -348,17 +351,14 @@ function quizHighScores() {
     clearHighScores.addEventListener('click', clearScores)
 
     var response = `Thanks, ${nameInput.value}!`
-     mainContent.appendChild(submissionResponseEl)
-    submissionResponseEl.textContent = response;
-
-    
-
+     mainContent.appendChild(subResponse)
+    subResponse.textContent = response;
+// storing the user's initials and quiz score to local storage
     localStorage.setItem("initials", nameInput.value);
     localStorage.setItem("score", quizStartTime);
 
     localStorage.getItem("initials");
     localStorage.getItem("score");
-
 
     var finalScore = document.createElement('ol')
     quizFinalPage.appendChild(finalScore)
@@ -366,9 +366,8 @@ function quizHighScores() {
     finalScore.appendChild(finalClassScore)
     finalClassScore.setAttribute("class", "user-score")
     finalClassScore.textContent = `${nameInput.value}; Score: ${quizStartTime}`;
-    
 }
-
+// event listener for when the submit button is clicked, the user initials are stored and the next page is shown
 initialBtn.addEventListener("click", function() {
     if (nameInput.value) {
         return quizHighScores();
@@ -378,14 +377,12 @@ initialBtn.addEventListener("click", function() {
     }
 });
 
-
 var scoresPage = document.getElementById('high-scores')
 scoresPage.addEventListener("click", quizHighScores)
 
-
-
 }
 
+// function that is triggered when the user clicks the clear scores button, which removes the user's initials and quiz score
 function clearScores() {
     window.confirm("Are you sure?")
     if (clearScores) {
@@ -406,7 +403,7 @@ function wrongFeedback() {
             
 }
 
-// function to provide feedback for correct answers
+// function to provide feedback for correct answers when selected
 function correctFeedback() { 
     var nextBtn = document.querySelector(".next-btn")
     nextBtn.classList.remove("hde-btn")
@@ -415,5 +412,5 @@ function correctFeedback() {
     mainContent.appendChild(feedback)
     feedback.setAttribute("style", "background-color: green; font-style: oblique; padding: 12px; font-weight: bold; border-radius: 8px;")
 }
-
+// loads the init function when the browswer first loads
 init();
